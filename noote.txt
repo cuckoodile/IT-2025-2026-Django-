@@ -1,0 +1,5 @@
+Advice Features:
+    - Authentication ("Is this user logged in?") and Authorization ("Who and what can this user does?").
+    - Roles and permission.
+
+===========================================
