@@ -1,112 +1,65 @@
-# Setting up Django Project
+# Django Project Creation Guide
 
-1. **create directory**
-```sh
-mkdir <name_of_folder>
-```
+This guide provides step-by-step instructions for creating a new Django project with Django REST Framework.
 
-2. **go inside your directory.**
-```sh
-cd <name_of_directory>
-```
+## Steps
 
-3. **create virtual environment**
-```sh
-python -m venv venv
-```
+1. **Create a project folder**  
+   Create a new folder for your project.
 
-4. **activate your virtual env.**
-```sh
-venv\Scripts\activate
-```
+2. **Navigate to the folder**  
+   Open the created folder in your terminal or use the command:  
+   ```
+   cd {created_folder_name}
+   ```
 
-5. **Install django**
-```sh
-pip install django
-```
+3. **Create a virtual environment**  
+   ```
+   python -m venv venv
+   ```
 
-6. **check the dependencies**
-```sh
-pip freeze
-```
+4. **Activate the virtual environment**  
+   On Windows:  
+   ```
+   venv\Scripts\activate
+   ```  
+   (Note: If you're on macOS/Linux, use `source venv/bin/activate` instead.)
 
-7. **save the dependencies to** `requirements.txt`
-```sh
-pip freeze > requirements.txt
-```
+5. **Install dependencies**  
+   ```
+   pip install django djangorestframework
+   ```  
+   Add more dependencies if needed, e.g., `pip install django djangorestframework some-other-package`.
 
-8. **create django project.**
-```sh
-django-admin startproject core .
-```
+6. **Start the Django project**  
+   ```
+   django-admin startproject core .
+   ```
 
-9. **run django development server**
-```sh
-python manage.py runserver
-```
+7. **Create a Django app**  
+   ```
+   python manage.py startapp {app_name}
+   ```
 
-    `ctrl + c` to stop the server
+8. **Update settings.py**  
+   Open `core/settings.py` and add the following to the `INSTALLED_APPS` list:  
+   ```
+   'rest_framework',
+   '{app_name}',
+   ```  
+   Add other dependencies as needed, e.g., `'{other_dependency}',`.
 
-10. **create apps**
-```sh
-python manage.py startapp student
-```
+9. **Make migrations**  
+   ```
+   python manage.py makemigrations
+   ```
 
-11. **add your new app to installed app** List
-`settings.py`
-```python
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'student', # add your new app
-]
-```
+10. **Apply migrations**  
+    ```
+    python manage.py migrate
+    ```
 
-12. create a model
-`models.py`
-```python
-from django.db import models
-
-# Create your models here.
-class Student(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    middle_name = models.CharField(max_length=50, blank=True , null=True)
-    
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
-```
-
-13. register your model to adminpanel
-`admin.py`
-```python
-from django.contrib import admin
-from .models import Student
-
-# Register your models here.
-admin.site.register(Student)
-```
-
-## create super user account
-```sh
-python manage.py createsuperuser
-```
-
-## migrations command
-```sh
-python manage.py makemigrations
-python manage.py migrate
-```
-
-## run server
-```sh
-python manage.py runserver
-```
-
-## test your code.
-`127.0.0.1:8000/admin`
-
+11. **Run the server**  
+    ```
+    python manage.py runserver
+    ```
